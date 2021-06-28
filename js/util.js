@@ -16,4 +16,7 @@ function measureLength (row, maxLength) {
   return (row.split('').length <= maxLength);
 }
 
-export {randomMinMax, measureLength};
+// если нажат esc - закрыть
+const isEscEvent = (evt) => evt.key === 'Escape' || evt.key === 'Esc';
+
+export {randomMinMax, measureLength, isEscEvent};

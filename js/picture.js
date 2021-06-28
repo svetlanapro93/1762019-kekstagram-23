@@ -1,18 +1,17 @@
-import { createPosts } from './post.js';
+import { createPost, PHOTOS_QUANTITY } from './post.js';
+import { bigPicturePopup } from './big-picture.js';
 
-// eslint-disable-next-line no-unused-vars
-function createPictureTemplate () {
-  const posts = createPosts(25);
-  const picture = document.querySelector('#picture').content.querySelector('.picture');
-  const picturesFragment = document.createDocumentFragment();
-  // eslint-disable-next-line no-const-assign,id-length
-  for (let i = 0; i < posts.length; i++){
-    const itemPhoto = picture.cloneNode(true);
-    itemPhoto.querySelector('.picture__img').src = posts[i].url;
-    itemPhoto.querySelector('.picture__likes').textContent = posts[i].likes;
-    itemPhoto.querySelector('.picture__comments').textContent = posts[i].comments;
-    picturesFragment.appendChild(itemPhoto);
-  }
-  document.querySelector('.pictures').appendChild(picturesFragment);
+const posts = new Array(PHOTOS_QUANTITY).fill(null).map((post, index) => createPost(index));
+const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
+const picturesFragment = document.createDocumentFragment();
+// eslint-disable-next-line no-const-assign,id-length
+for (let i = 0; i < posts.length; i++){
+  const photoElement = pictureTemplate.cloneNode(true);
+  photoElement.querySelector('.picture__img').src = posts[i].url;
+  photoElement.querySelector('.picture__likes').textContent = posts[i].likes;
+  photoElement.querySelector('.picture__comments').textContent = posts[i].comments.length;
+  bigPicturePopup(photoElement, posts[i]);
+  picturesFragment.appendChild(photoElement);
 }
-export {createPictureTemplate};
+
+document.querySelector('.pictures').appendChild(picturesFragment);

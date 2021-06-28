@@ -1,6 +1,4 @@
-import { createPosts } from './post.js';
-import {createPictureTemplate} from './picture.js';
+import './post.js';
+import './picture.js';
+import './big-picture.js';
 
-const post = createPosts(25);
-// eslint-disable-next-line no-console
-createPictureTemplate();
